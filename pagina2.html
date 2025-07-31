@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<title>Mensagem para o Pai</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet" />
+<style>
+  body {
+    background: linear-gradient(135deg, #4a7ec8, #9ec6ff);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0; padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: #0d1d3a;
+  }
+  .container {
+    background: #a3c2f5;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 51, 128, 0.4);
+    max-width: 900px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #07336d;
+    text-shadow: 0 0 6px #aad1ff;
+  }
+  .texto {
+    background: #d9e7ff;
+    padding: 25px;
+    border-radius: 15px;
+    color: #07336d;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    text-align: justify;
+    box-shadow: 0 4px 15px rgba(0, 50, 150, 0.3);
+    line-height: 1.6em;
+  }
+
+  .linha-tempo {
+    position: relative;
+    margin-top: 30px;
+    padding: 40px 0;
+    background: #73a0e8;
+    border-radius: 15px;
+    box-shadow: 0 6px 25px rgba(26, 71, 133, 0.5);
+    width: 100%;
+  }
+  .linha-tempo::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 100%;
+    background: #aacbff;
+    border-radius: 3px;
+    z-index: 1;
+  }
+
+  .eu-te-amo {
+    font-size: 1.6em;
+    color: #0d1d3a;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-shadow: 0 0 8px #aacbff;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+
+    /* animação fade-in + zoom suave */
+    opacity: 0;
+    transform: scale(0.9);
+    animation: fadeZoomIn 2s forwards ease-in-out 0.5s;
+  }
+
+  @keyframes fadeZoomIn {
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .etapa {
+    position: relative;
+    width: 45%;
+    background: #a3c2f5;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 6px 15px rgba(0, 50, 150, 0.3);
+    color: #0d1d3a;
+    z-index: 2;
+  }
+  .etapa:nth-child(odd) {
+    float: left;
+    clear: both;
+    margin-left: 5%;
+  }
+  .etapa:nth-child(even) {
+    float: right;
+    clear: both;
+    margin-right: 5%;
+  }
+  .etapa:nth-child(odd)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -15px;
+    transform: translateY(-50%);
+    border: 15px solid transparent;
+    border-left-color: #a3c2f5;
+  }
+  .etapa:nth-child(even)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    transform: translateY(-50%);
+    border: 15px solid transparent;
+    border-right-color: #a3c2f5;
+  }
+  .etapa h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    color: #07336d;
+    text-shadow: 0 0 6px #79a8f7;
+  }
+  .galeria {
+    display: flex;
+    gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+  }
+  .galeria img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+  .galeria img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  }
+  .linha-tempo::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .botao-voltar {
+    margin-top: 40px;
+    display: inline-block;
+    padding: 12px 28px;
+    background: #5290e9;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgba(0, 80, 160, 0.6);
+    transition: background-color 0.3s ease;
+  }
+  .botao-voltar:hover {
+    background-color: #3a6bbf;
+  }
+
+  /* Controles musicais */
+  #player-controls {
+    position: fixed;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(255 255 255 / 0.9);
+    border-radius: 30px;
+    padding: 8px 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #btn-play-pause {
+    cursor: pointer;
+    background: #5290e9;
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+  }
+  #btn-play-pause:hover {
+    background: #3a6bbf;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Sua Mensagem Especial ✨</h2>
+  <div class="texto" id="mensagemSalva">
+    Pai, desde os meus primeiros passos até hoje, você sempre esteve ao meu lado.<br />
+    Com seu carinho, sua força e seu exemplo, você me ensinou a ser quem eu sou.<br />
+    Cada momento vivido com você é uma lembrança que carrego com amor no coração.<br />
+    Obrigada por tudo, por tanto, por sempre.<br /><br />
+    <strong>Eu te amo! Feliz Dia dos Pais!</strong>
+  </div>
+
+  <div class="linha-tempo" id="linhaTempo">
+    <div class="eu-te-amo">Eu te amo 💙</div>
+
+    <div class="etapa" id="nenem">
+      <h3>👶 Quando eu era neném</h3>
+      <div class="galeria" id="galeria-nenem"></div>
+    </div>
+
+    <div class="etapa" id="crianca">
+      <h3>🧒 Quando eu era criança</h3>
+      <div class="galeria" id="galeria-crianca"></div>
+    </div>
+
+    <div class="etapa" id="hoje">
+      <h3>👧 Até os dias de hoje</h3>
+      <div class="galeria" id="galeria-hoje"></div>
+    </div>
+  </div>
+
+  <a href="index.html" class="botao-voltar">Voltar para a Página Inicial</a>
+</div>
+
+<!-- Controles musicais e player local -->
+<div id="player-controls">
+  <button id="btn-play-pause">Pausar Música</button>
+  <audio id="player" src="papai-eu-amo-voce-turma-do-printy.mp3" loop autoplay></audio>
+</div>
+
+<script>
+  // Aqui as fotos que você quer já prontas, coloque as URLs das suas fotos (pode ser da web ou caminho relativo se estiver na mesma pasta)
+  const fotosNenem = [
+    'foto bebe.jpeg',
+  ];
+  const fotosCrianca = [
+    'foto criança.jpeg',
+  ];
+  const fotosHoje = [
+    'foto agora.jpeg',
+  ];
+
+  function carregarGaleriaManual(idGaleria, fotos) {
+    const galeria = document.getElementById(idGaleria);
+    galeria.innerHTML = '';
+    fotos.forEach(src => {
+      const img = document.createElement('img');
+      img.src = src;
+      galeria.appendChild(img);
+    });
+  }
+
+  window.onload = () => {
+    carregarGaleriaManual('galeria-nenem', fotosNenem);
+    carregarGaleriaManual('galeria-crianca', fotosCrianca);
+    carregarGaleriaManual('galeria-hoje', fotosHoje);
+  };
+
+  // Controle do player local
+  const player = document.getElementById('player');
+  const btnPlayPause = document.getElementById('btn-play-pause');
+
+  btnPlayPause.addEventListener('click', () => {
+    if (player.paused) {
+      player.play();
+      btnPlayPause.textContent = 'Pausar Música';
+    } else {
+      player.pause();
+      btnPlayPause.textContent = 'Tocar Música';
+    }
+  });
+
+  player.onplay = () => btnPlayPause.textContent = 'Pausar Música';
+  player.onpause = () => btnPlayPause.textContent = 'Tocar Música';
+</script>
+
+</body>
+</html>
